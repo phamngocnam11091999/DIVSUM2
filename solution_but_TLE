@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define M 1000000007
+#define ll long long
+#define pb push_back
+#define mp make_pair
+ll pow(ll x,ll y)
+{
+    if (y==1) return x;
+    if (y==0) return 1;
+    ll tem=pow(x,y/2);
+    if (y%2==0)
+        return tem*tem;
+    else 
+        return tem*tem*x;
+}
+int main()
+{
+    bool p[100000005];
+    ll a[6000000],m=0;
+    ll i,j,T,N;
+    for (i=0;i<=1e8;i++)
+        p[i]=0;
+    p[0]=1;
+    p[1]=1;
+    for (i=2;i<=1e8;i++)
+        if (p[i]==0)
+            for (j=i+i;j<=1e8;j+=i)
+                p[j]=1;
+    for (i=2;i<=1e8;i++)
+        if (p[i]==0)
+            a[m++]=i;
+    scanf("%lld",&T);
+    while (T--)
+        {
+            ll j;
+            scanf("%lld",&N);
+            if (N==1)
+                {
+                    printf("0\n");
+                    continue;
+                }
+            vector<pair<ll,ll>> vect;
+            ll A=N;
+            for (i=0;i<m;i++)
+                {
+                    ll f=a[i],cnt=0;
+                    while (A%f==0)
+                        {
+                            cnt++;
+                            A=A/f;
+                        }
+                    if (cnt>0)
+                        vect.push_back(make_pair(f,cnt));
+                    if (A==1)
+                        break;
+                }
+            if (A>1)
+                vect.pb(mp(A,1));
+            ll ans=1;
+            for (i=0;i<vect.size();i++)
+                {
+                    ll P=vect[i].first,Q=vect[i].second;
+                    ll O=0;
+                    for (j=0;j<=Q;j++)
+                        O=O+pow(P,j);
+                    ans=ans*O;
+                }
+            printf("%lld\n",ans-N);
+        }
+} 
