@@ -5,7 +5,7 @@ using namespace std;
 #define pb push_back
 #define mp make_pair
 
-// 10 - 19 exponent x^y
+// 10 - 19 exponent 2 numbers
 
 ll pow(ll x,ll y)
 {
@@ -51,7 +51,8 @@ int main()
                 }
             vector<pair<ll,ll>> vect;
             ll A=N;
-            // fracterize number N to prime numbers
+            
+            // fracterize number N to prime numbers, f is (f is prime) base number, cnt is exponent
             for (i=0;i<m;i++)
                 {
                     ll f=a[i],cnt=0;
@@ -67,6 +68,8 @@ int main()
                 }
             if (A>1)
                 vect.pb(mp(A,1));
+            
+            // sum of all divisors 
             ll ans=1;
             for (i=0;i<vect.size();i++)
                 {
